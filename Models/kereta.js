@@ -31,6 +31,9 @@ const Trains = sequelize.define('Trains', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
   
   module.exports = Trains;

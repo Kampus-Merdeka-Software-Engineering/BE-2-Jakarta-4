@@ -1,7 +1,7 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinAja")
 
-const Hotel = sequelize.define('Hotel', {
+const Hotel = sequelize.define('hotels', {
     hotel_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -27,6 +27,9 @@ const Hotel = sequelize.define('Hotel', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
   
   module.exports = Hotel;

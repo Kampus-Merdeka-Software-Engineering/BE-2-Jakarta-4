@@ -31,6 +31,9 @@ const Flights = sequelize.define('Flights', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
   
   module.exports = Flights;

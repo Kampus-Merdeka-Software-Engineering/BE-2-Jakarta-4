@@ -59,6 +59,9 @@ const Bookings = sequelize.define('Bookings', {
       type: DataTypes.STRING,
       allowNull: true,
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
   
   module.exports = Bookings;

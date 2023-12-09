@@ -1,5 +1,5 @@
 // controllers/bookingController.js
-const Kereta = require('../Models/kereta');
+const Kereta = require('../models/kereta');
 
 //CRUD
 const createHotel = async (req, res) => {
