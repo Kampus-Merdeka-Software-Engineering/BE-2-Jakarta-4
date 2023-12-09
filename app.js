@@ -4,6 +4,9 @@ const { Sequelize } = require('sequelize');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
+var cors = require('cors')
+
+
 
 const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinaja")
 
@@ -20,6 +23,7 @@ sequelize
   });
 
 app.use(bodyParser.json());
+app.use(cors())
 
 // Routes
 const apiRoutes = require('./Routes/api');
