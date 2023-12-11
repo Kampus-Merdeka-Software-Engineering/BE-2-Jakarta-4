@@ -1,16 +1,16 @@
-const Train = require('../Models/kereta');
+const Flight = require('../Models/pesawat');
 const Booking = require('../Models/booking');
 
 //cari data nya
-const searchTrain = async (req, res) => {
-  const { departure_station, arrival_station, departure_time, kelas } = req.query;
+const searchFlight = async (req, res) => {
+  const { departure_city, arrival_city, departure_date, kelas } = req.query;
 
   try {
     //objek kondisi pencarian
     const searchKondisi = {
-      departure_station: departure_station,
-      arrival_station: arrival_station,
-      departure_time: departure_time,
+      departure_city: departure_city,
+      arrival_city: arrival_city,
+      departure_date: departure_date,
       kelas: kelas,
     }
 
@@ -21,36 +21,35 @@ const searchTrain = async (req, res) => {
       }
     }
 
-  
-    // Cari kereta berdasarkan condition-term
-    const trains = await Train.findAll({
+    // Cari pesawat berdasarkan condition-term
+    const flights = await Flight.findAll({
       where: kondisi,
     });
 
-    return res.json(trains);
+    return res.json(flights);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Terjadi kesalahan server.' });
   }
 };
 
-const createBookingKereta = async (req, res) => {
+const createBookingFlight = async (req, res) => {
   try {
     // Pastikan bahwa req.body ada dan sesuai properti yang diperlukan
-    if (!req.body || !req.body.train_id || !req.body.total_amount) {
+    if (!req.body || !req.body.flight_id || !req.body.total_amount) {
       // console.error('Data tidak lengkap', req.body);
-      return res.status(400).json({ success: false, message: 'Data tidak lengkap atau train_id tidak ditemukan.' });
+      return res.status(400).json({ success: false, message: 'Data tidak lengkap atau flight_id tidak ditemukan.' });
     }
 
-    // Cek dlu apakah hotel dengan ID yang diberikan ada
-    const existingTrain = await Train.findByPk(req.body.train_id);
+    // Cek dlu apakah pesawat dengan ID yang diberikan ada
+    const existingTrain = await Flight.findByPk(req.body.flight_id);
     if (!existingTrain) {
-      return res.status(404).json({ success: false, message: 'Tiket kereta tidak ditemukan.' });
+      return res.status(404).json({ success: false, message: 'Tiket pesawat tidak ditemukan.' });
     }
 
     // Simpan datanya ke database di tabel bookings
     const newBooking = await Booking.create({
-      train_id: req.body.train_id,
+      flight_id: req.body.flight_id,
       total_amount: req.body.total_amount,
     });
 
@@ -63,6 +62,6 @@ const createBookingKereta = async (req, res) => {
 };
 
 module.exports = {
-  searchTrain,
-  createBookingKereta,
+  searchFlight,
+  createBookingFlight,
 };

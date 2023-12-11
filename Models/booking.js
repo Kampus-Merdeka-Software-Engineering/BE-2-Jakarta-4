@@ -1,15 +1,21 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinAja")
 
-const Bookings = sequelize.define('Bookings', {
+const Hotel = require('./hotel');
+const Pesawat = require('./pesawat');
+const Liburan = require('./liburan');
+const Kereta = require('./kereta');
+
+
+const Bookings = sequelize.define('bookings', {
     booking_id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
+      autoIncrement: true,  
       primaryKey: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Users',
         key: 'user_id',
@@ -17,15 +23,15 @@ const Bookings = sequelize.define('Bookings', {
     },
     hotel_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: 'Hotel', // Ganti dari 'Hotels' ke 'Hotel'
+        model: 'Hotel', 
         key: 'hotel_id',
       },
     },
     flight_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Flights',
         key: 'flight_id',
@@ -33,7 +39,7 @@ const Bookings = sequelize.define('Bookings', {
     },
     train_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Trains',
         key: 'train_id',
@@ -41,27 +47,36 @@ const Bookings = sequelize.define('Bookings', {
     },
     holiday_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Holidays',
         key: 'holiday_id',
       },
     },
     booking_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+        allowNull: false,
     },
     total_amount: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-    },
-    other_booking_fields: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   }, {
     freezeTableName: true,
     timestamps: false,
   });
-  
-  module.exports = Bookings;
+
+Bookings.belongsTo(Hotel, { foreignKey: 'hotel_id' });
+Hotel.hasMany(Bookings, { foreignKey: 'hotel_id' });
+
+Bookings.belongsTo(Pesawat, { foreignKey: 'flight_id' });
+Pesawat.hasMany(Bookings, { foreignKey: 'flight_id' });
+
+Bookings.belongsTo(Liburan, { foreignKey: 'holiday_id' });
+Liburan.hasMany(Bookings, { foreignKey: 'holiday_id' });
+
+Bookings.belongsTo(Kereta, { foreignKey: 'train_id' });
+Kereta.hasMany(Bookings, { foreignKey: 'train_id' });
+
+module.exports = Bookings;

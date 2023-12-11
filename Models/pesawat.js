@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinAja")
 
 const Flights = sequelize.define('Flights', {

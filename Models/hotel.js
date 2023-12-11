@@ -31,5 +31,6 @@ const Hotel = sequelize.define('hotels', {
     freezeTableName: true,
     timestamps: false,
   });
+
   
   module.exports = Hotel;
