@@ -24,7 +24,7 @@ const searchHolidays = async (req, res) => {
 const createBookingLiburan = async (req, res) => {
     try {
       // Pastikan bahwa req.body ada dan sesuai properti yang diperlukan
-      if (!req.body || !req.body.holiday_id || !req.body.total_amount) {
+      if (!req.body || !req.body.holiday_id ) {
         // console.error('Data tidak lengkap', req.body);
         return res.status(400).json({ success: false, message: 'Data tidak lengkap atau holiday_id tidak ditemukan.' });
       }
@@ -38,7 +38,6 @@ const createBookingLiburan = async (req, res) => {
       // Simpan datanya ke database di tabel bookings
       const newBooking = await Booking.create({
         holiday_id: req.body.holiday_id,
-        total_amount: req.body.total_amount,
       });
   
       // Kirim respons ke klien / user

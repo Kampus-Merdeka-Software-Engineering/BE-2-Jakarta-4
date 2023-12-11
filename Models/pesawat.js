@@ -19,15 +19,15 @@ const Flights = sequelize.define('Flights', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    departure_date: {
-        type: DataTypes.DATE,
+    departure_time: {
+        type: DataTypes.TIME,
         allowNull: false,
     },
-    arrival_date: {
-        type: DataTypes.DATE,
+    arrival_time: {
+        type: DataTypes.TIME,
         allowNull: false,
     },
-    class: {
+    kelas: {
         type: DataTypes.STRING,
         allowNull: false,
     },

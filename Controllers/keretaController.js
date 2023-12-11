@@ -3,14 +3,13 @@ const Booking = require('../Models/booking');
 
 //cari data nya
 const searchTrain = async (req, res) => {
-  const { departure_station, arrival_station, departure_time, kelas } = req.query;
+  const { departure_station, arrival_station, kelas } = req.query;
 
   try {
     //objek kondisi pencarian
     const searchKondisi = {
       departure_station: departure_station,
       arrival_station: arrival_station,
-      departure_time: departure_time,
       kelas: kelas,
     }
 
@@ -37,7 +36,7 @@ const searchTrain = async (req, res) => {
 const createBookingKereta = async (req, res) => {
   try {
     // Pastikan bahwa req.body ada dan sesuai properti yang diperlukan
-    if (!req.body || !req.body.train_id || !req.body.total_amount) {
+    if (!req.body || !req.body.train_id ) {
       // console.error('Data tidak lengkap', req.body);
       return res.status(400).json({ success: false, message: 'Data tidak lengkap atau train_id tidak ditemukan.' });
     }
@@ -51,7 +50,6 @@ const createBookingKereta = async (req, res) => {
     // Simpan datanya ke database di tabel bookings
     const newBooking = await Booking.create({
       train_id: req.body.train_id,
-      total_amount: req.body.total_amount,
     });
 
     // Kirim respons ke klien / user
