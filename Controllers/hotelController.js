@@ -24,7 +24,7 @@ const searchHotel = async (req, res) => {
 const createBookingHotel = async (req, res) => {
   try {
     // Pastikan bahwa req.body ada dan memiliki properti yang diperlukan
-    if (!req.body || !req.body.hotel_id || !req.body.total_amount) {
+    if (!req.body || !req.body.hotel_id ) {
       console.error('Data tidak lengkap atau hotel_id tidak ditemukan:', req.body);
       return res.status(400).json({ success: false, message: 'Data tidak lengkap atau hotel_id tidak ditemukan.' });
     }
@@ -38,7 +38,6 @@ const createBookingHotel = async (req, res) => {
     // Simpan data booking ke database
     const newBooking = await Booking.create({
       hotel_id: req.body.hotel_id,
-      total_amount: req.body.total_amount,
     });
 
     // Kirim respons ke klien
@@ -53,7 +52,6 @@ const createBookingHotel = async (req, res) => {
 
 module.exports = {
   searchHotel,
-  hasilHotel,
   createBookingHotel,
 };
 
