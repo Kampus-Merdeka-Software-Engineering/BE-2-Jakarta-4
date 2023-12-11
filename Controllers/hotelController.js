@@ -20,9 +20,6 @@ const searchHotel = async (req, res) => {
   }
 };
 
-// const hasilHotel = async (req, res) => {
-
-// };
 
 const createBookingHotel = async (req, res) => {
   try {
