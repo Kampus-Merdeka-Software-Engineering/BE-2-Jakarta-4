@@ -10,7 +10,17 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 
-const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinaja");
+// const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinaja");
+
+const sequelize = new Sequelize({
+  dialect: 'mysql',
+  username: process.env.DB_USERNAME || 'root',
+  password: process.env.DB_PASSWORD || '',
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 3306,
+  database: process.env.DB_NAME || 'db_travelinaja',
+});
+
 
 sequelize
   .authenticate()
