@@ -7,7 +7,7 @@ const keretaRoutes = require('./Routes/kereta');
 const pesawatRoutes = require('./Routes/pesawat');
 
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;;
 const cors = require('cors');
 
 // const sequelize = new Sequelize("mysql://root@localhost:3306/db_travelinaja");
